@@ -1,9 +1,14 @@
 import { Component } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms/src/model';
 
 @Component({
     selector: 'tender-create',
     templateUrl: './tendercreate.component.html',
-    styles: []
+    styleUrls:  ["./tendercreate.component.css"]
 })
-export class TenderCreateComponent{    
+export class TenderCreateComponent{  
+
+    onSubmit(){
+
+    }    
 }

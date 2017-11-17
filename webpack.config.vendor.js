@@ -9,17 +9,20 @@ const treeShakableModules = [
     '@angular/core',
     '@angular/forms',
     '@angular/http',
+    '@angular/material',
     '@angular/platform-browser',
     '@angular/platform-browser-dynamic',
     '@angular/router',
     'zone.js',
 ];
 const nonTreeShakableModules = [
+    '@angular/material/prebuilt-themes/deeppurple-amber.css',
     'bootstrap',
     'bootstrap/dist/css/bootstrap.css',
     'es6-promise',
     'es6-shim',
     'event-source-polyfill',
+    'font-awesome/css/font-awesome.css',
     'jquery',
 ];
 const allModules = treeShakableModules.concat(nonTreeShakableModules);
