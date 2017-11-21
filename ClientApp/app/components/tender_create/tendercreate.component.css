@@ -7,6 +7,10 @@
     width: 90%;
     margin-top: 5%;
 }
+.card-title{
+    font-size: 20pt;
+    color: #259f6c;
+}
 .full-width{
     width: 100%;
 }
