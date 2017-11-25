@@ -12,8 +12,8 @@ namespace KupcheAspNetCore
         }
 
         public int IdSubcategory { get; set; }
-        public string SubcategoryName { get; set; }
-        public string SubcategoryInfo { get; set; }
+        public string Name { get; set; }
+        public string Info { get; set; }
         public int CategoryId { get; set; }
         public sbyte? IsCategory { get; set; }
         public int? OfChild { get; set; }

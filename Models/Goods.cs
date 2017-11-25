@@ -11,8 +11,8 @@ namespace KupcheAspNetCore
         }
 
         public int IdGoods { get; set; }
-        public string GoodsParams { get; set; }
-        public decimal GoodsCost { get; set; }
+        public string Params { get; set; }
+        public decimal Cost { get; set; }
         public int NomenclaturesId { get; set; }
         public int? UnitId { get; set; }
         public int SubcategoryId { get; set; }

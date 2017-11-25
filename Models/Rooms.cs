@@ -12,8 +12,8 @@ namespace KupcheAspNetCore
         }
 
         public int IdRooms { get; set; }
-        public string RoomsName { get; set; }
-        public int RoomsCreatorId { get; set; }
+        public string Name { get; set; }
+        public int CreatorId { get; set; }
         public sbyte? IsDeleted { get; set; }
         public sbyte? IsCompanyRoom { get; set; }
         public DateTime AdditionTime { get; set; }

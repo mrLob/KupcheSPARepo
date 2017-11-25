@@ -1,4 +1,4 @@
-export class Tender {
+export class Order {
     public caption: string;
     public text: Object;
     public cost: number;

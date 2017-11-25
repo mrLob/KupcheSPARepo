@@ -1,8 +1,9 @@
 ﻿using System;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
+using MySQL.Data.EntityFrameworkCore.Extensions;
 
-namespace KupcheAspNetCore
+namespace KupcheAspNetCore.Models
 {
     public partial class servicedbContext : DbContext
     {
@@ -35,11 +36,27 @@ namespace KupcheAspNetCore
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//             if (!optionsBuilder.IsConfigured)
-//             {
-// #warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-//                 optionsBuilder.UseMySql("User Id=root ;password=root;Host=127.0.0.1;Database=servicedb;");
-//             }
+            if (!optionsBuilder.IsConfigured)
+            {
+//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                //"User Id=root ;password=root;Host=127.0.0.1;Database=servicedb;"
+                optionsBuilder.UseMySql(GetConnectionString());
+                
+            }
+        }
+
+        private static string GetConnectionString()
+        {
+            const string databaseName = "servicedb";
+            const string databaseUser = "root";
+            const string databasePass = "root";
+            const string databaseHost = "86.57.161.56";
+            
+            return $"Server={databaseHost};" +
+                   $"database={databaseName};" +
+                   $"uid={databaseUser};" +
+                   $"pwd={databasePass};" +
+                   $"pooling=true;";
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

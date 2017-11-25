@@ -11,7 +11,7 @@ namespace KupcheAspNetCore
         }
 
         public int IdPositions { get; set; }
-        public string PositionsName { get; set; }
+        public string Name { get; set; }
         public string ShortName { get; set; }
         public DateTime AdditionTime { get; set; }
         public DateTime LastUpdate { get; set; }

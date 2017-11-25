@@ -11,8 +11,8 @@ namespace KupcheAspNetCore
         }
 
         public int IdCountry { get; set; }
-        public string CountryName { get; set; }
-        public string CountryShortName { get; set; }
+        public string Name { get; set; }
+        public string ShortName { get; set; }
         public DateTime AdditionTime { get; set; }
         public DateTime LastUpdate { get; set; }
 

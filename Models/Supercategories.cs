@@ -12,7 +12,7 @@ namespace KupcheAspNetCore
         }
 
         public int IdSuperCategories { get; set; }
-        public string SuperCategoriesName { get; set; }
+        public string Name { get; set; }
         public DateTime AdditionTime { get; set; }
         public DateTime LastUpdate { get; set; }
 

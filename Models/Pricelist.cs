@@ -6,7 +6,7 @@ namespace KupcheAspNetCore
     public partial class Pricelist
     {
         public int IdPricelist { get; set; }
-        public double PricelistCount { get; set; }
+        public double Count { get; set; }
         public int GoodsId { get; set; }
         public int CompanyId { get; set; }
         public int CurrencyId { get; set; }
