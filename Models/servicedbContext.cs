@@ -182,24 +182,24 @@ namespace KupcheAspNetCore.Models
                     .HasColumnName("addition_time")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.CompaniesAbout).HasColumnType("mediumtext");
+                entity.Property(e => e.About).HasColumnType("mediumtext");
 
-                entity.Property(e => e.CompanyContacts)
+                entity.Property(e => e.Contacts)
                     .IsRequired()
                     .HasColumnType("tinytext");
 
-                entity.Property(e => e.CompanyName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnType("varchar")
                     .HasMaxLength(200);
 
-                entity.Property(e => e.CompanyPan)
+                entity.Property(e => e.Pan)
                     .IsRequired()
                     .HasColumnName("CompanyPAN")
                     .HasColumnType("varchar")
                     .HasMaxLength(45);
 
-                entity.Property(e => e.CompanyShortName)
+                entity.Property(e => e.ShortName)
                     .HasColumnType("varchar")
                     .HasMaxLength(45);
 
@@ -259,12 +259,12 @@ namespace KupcheAspNetCore.Models
                     .HasColumnName("addition_time")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.CountryName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnType("varchar")
                     .HasMaxLength(145);
 
-                entity.Property(e => e.CountryShortName)
+                entity.Property(e => e.ShortName)
                     .HasColumnType("varchar")
                     .HasMaxLength(45);
 
@@ -350,12 +350,12 @@ namespace KupcheAspNetCore.Models
                     .HasColumnName("addition_time")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.GoodsCost)
+                entity.Property(e => e.Cost)
                     .HasDefaultValueSql("0.00")
                     .HasAnnotation("Precision", 6)
                     .HasAnnotation("Scale", 2);
 
-                entity.Property(e => e.GoodsParams).HasColumnType("mediumtext");
+                entity.Property(e => e.Params).HasColumnType("mediumtext");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
@@ -597,7 +597,7 @@ namespace KupcheAspNetCore.Models
                     .HasColumnName("last_update")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.PositionsName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnType("varchar")
                     .HasMaxLength(145);
@@ -627,7 +627,7 @@ namespace KupcheAspNetCore.Models
                     .HasColumnName("last_update")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.PricelistCount).HasDefaultValueSql("0");
+                entity.Property(e => e.Count).HasDefaultValueSql("0");
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Pricelist)
@@ -672,14 +672,14 @@ namespace KupcheAspNetCore.Models
                     .HasColumnName("last_update")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.RoomsName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnType("varchar")
                     .HasMaxLength(100);
 
                 entity.HasOne(d => d.RoomsCreator)
                     .WithMany(p => p.Rooms)
-                    .HasForeignKey(d => d.RoomsCreatorId)
+                    .HasForeignKey(d => d.CreatorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Rooms_Users");
             });
@@ -750,7 +750,7 @@ namespace KupcheAspNetCore.Models
 
                 entity.Property(e => e.BeginTime).HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.SessionIp)
+                entity.Property(e => e.Ip)
                     .HasColumnName("SessionIP")
                     .HasColumnType("varchar")
                     .HasMaxLength(45);
@@ -813,9 +813,9 @@ namespace KupcheAspNetCore.Models
 
                 entity.Property(e => e.OfChild).HasColumnName("of_Child");
 
-                entity.Property(e => e.SubcategoryInfo).HasColumnType("text");
+                entity.Property(e => e.Info).HasColumnType("text");
 
-                entity.Property(e => e.SubcategoryName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnType("varchar")
                     .HasMaxLength(100);
@@ -848,7 +848,7 @@ namespace KupcheAspNetCore.Models
                     .HasColumnName("last_update")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.SuperCategoriesName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnType("varchar")
                     .HasMaxLength(50);
@@ -874,12 +874,12 @@ namespace KupcheAspNetCore.Models
                     .HasColumnName("last_update")
                     .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
-                entity.Property(e => e.UnitName)
+                entity.Property(e => e.Name)
                     .IsRequired()
                     .HasColumnType("varchar")
                     .HasMaxLength(145);
 
-                entity.Property(e => e.UnitsShortName)
+                entity.Property(e => e.ShortName)
                     .IsRequired()
                     .HasColumnType("varchar")
                     .HasMaxLength(45);

@@ -1,9 +1,12 @@
 export class Order {
-    public caption: string;
-    public text: Object;
-    public cost: number;
-    public userid: number;
-    public geomap: any[];
+    Caption: string;
+    Text: string;
+    Geomap:string;
+    Cost: number;
+    Viewers: number;
+    UsersId: number;
+    ThereImages: boolean;
+    ThereFiles: boolean;
 }
 export class User{
     constructor(){}

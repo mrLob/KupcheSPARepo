@@ -11,18 +11,18 @@ namespace  KupcheAspNetCore.Controllers
     [Route("api/[controller]")]
     public class OrdersController : Controller
     {
-        [HttpGet("[action]")]
-        public DbSet<Orders> GetTenders()
+        [HttpGet]
+        public IEnumerable<Orders> GetOrders()
         {
             using(servicedbContext db = new servicedbContext()){
-                var tender =  db.Orders;
+                var tender =  db.Orders.ToList();
                 
             return tender;
             }
         }
 
         [HttpPost]
-        public IActionResult PostTenders([FromBody]Orders neworder)
+        public IActionResult PostOrders([FromBody]Orders neworder)
         {
             if(ModelState.IsValid)
             {
