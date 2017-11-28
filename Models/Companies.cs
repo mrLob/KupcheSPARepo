@@ -20,8 +20,8 @@ namespace KupcheAspNetCore
         public string Pan { get; set; }
         public int AddressId { get; set; }
         public sbyte? IsDeleted { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public Addresses Address { get; set; }
         public ICollection<Companyactivity> Companyactivity { get; set; }

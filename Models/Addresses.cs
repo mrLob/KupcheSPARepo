@@ -11,15 +11,15 @@ namespace KupcheAspNetCore
         }
 
         public int IdAddress { get; set; }
-        public string AddressStreet { get; set; }
-        public int? AddressNumber { get; set; }
-        public string AddressFlat { get; set; }
-        public string AddressZip { get; set; }
-        public string AddressesGeomap { get; set; }
+        public string Street { get; set; }
+        public int? Number { get; set; }
+        public string Flat { get; set; }
+        public string Zip { get; set; }
+        public string Geomap { get; set; }
         public int CityId { get; set; }
         public sbyte? IsDeleted { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public City City { get; set; }
         public ICollection<Companies> Companies { get; set; }

@@ -11,10 +11,10 @@ namespace KupcheAspNetCore
         }
 
         public int IdCity { get; set; }
-        public string CityName { get; set; }
+        public string Name { get; set; }
         public int CountryId { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public Country Country { get; set; }
         public ICollection<Addresses> Addresses { get; set; }

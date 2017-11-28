@@ -1,5 +1,4 @@
 ﻿using System;
-using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using MySQL.Data.EntityFrameworkCore.Extensions;
@@ -35,33 +34,14 @@ namespace KupcheAspNetCore.Models
         public virtual DbSet<Units> Units { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
-        // public servicedbContext(DbContextOptions<servicedbContext> options)
-        // : base(options)
-        // {
-            
-        // }
-        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-//#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
-                //"User Id=root ;password=root;Host=127.0.0.1;Database=servicedb;"
-                
-            optionsBuilder.UseMySql("server=86.57.161.56;database=servicedb;userid=root;password=root;");
+            if (!optionsBuilder.IsConfigured)
+            {
+#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
+                optionsBuilder.UseMySql("Server=86.57.161.56;user=root;password=root;database=servicedb;");
+            }
         }
-
-        // private static string GetConnectionString()
-        // {
-        //     const string databaseName = "servicedb";
-        //     const string databaseUser = "root";
-        //     const string databasePass = "root";
-        //     const string databaseHost = "86.57.161.56";
-            
-        //     return $"Server={databaseHost};" +
-        //            $"database={databaseName};" +
-        //            $"uid={databaseUser};" +
-        //            $"pwd={databasePass};" +
-        //            $"pooling=true;";
-        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -69,27 +49,41 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdActivityTypes);
 
-                entity.ToTable("activitytypes", "servicedb");
+                entity.ToTable("activitytypes");
 
-                entity.Property(e => e.IdActivityTypes).HasColumnName("idActivityTypes");
+                entity.HasIndex(e => e.CategoryId)
+                    .HasName("fk_ActivityTypes_Category_idx");
 
-                entity.Property(e => e.ActivityTypesName)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(100);
+                entity.HasIndex(e => e.ChildOf)
+                    .HasName("fk_ActivityTypes_1_idx");
+
+                entity.Property(e => e.IdActivityTypes)
+                    .HasColumnName("idActivityTypes")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.ChildOf).HasColumnName("Child_Of");
+                entity.Property(e => e.CategoryId).HasColumnType("int(11)");
+
+                entity.Property(e => e.ChildOf)
+                    .HasColumnName("Child_Of")
+                    .HasColumnType("int(11)");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.Name).HasMaxLength(200);
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Activitytypes)
@@ -106,38 +100,46 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdAddress);
 
-                entity.ToTable("addresses", "servicedb");
+                entity.ToTable("addresses");
 
-                entity.Property(e => e.IdAddress).HasColumnName("idAddress");
+                entity.HasIndex(e => e.CityId)
+                    .HasName("fk_Address_City_idx");
+
+                entity.Property(e => e.IdAddress)
+                    .HasColumnName("idAddress")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.AddressFlat)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(45);
+                entity.Property(e => e.CityId).HasColumnType("int(11)");
 
-                entity.Property(e => e.AddressStreet)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(45);
+                entity.Property(e => e.Flat).HasMaxLength(45);
 
-                entity.Property(e => e.AddressZip)
-                    .HasColumnName("AddressZIP")
-                    .HasColumnType("varchar")
-                    .HasMaxLength(45);
-
-                entity.Property(e => e.AddressesGeomap)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(45);
+                entity.Property(e => e.Geomap).HasMaxLength(45);
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.Number).HasColumnType("int(11)");
+
+                entity.Property(e => e.Street)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.Zip)
+                    .HasColumnName("ZIP")
+                    .HasMaxLength(45);
 
                 entity.HasOne(d => d.City)
                     .WithMany(p => p.Addresses)
@@ -150,22 +152,31 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdCity);
 
-                entity.ToTable("city", "servicedb");
+                entity.ToTable("city");
 
-                entity.Property(e => e.IdCity).HasColumnName("idCity");
+                entity.HasIndex(e => e.CountryId)
+                    .HasName("fk_City_1_idx");
+
+                entity.Property(e => e.IdCity)
+                    .HasColumnName("idCity")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.CityName)
-                    .IsRequired()
-                    .HasColumnType("varchar")
-                    .HasMaxLength(100);
+                entity.Property(e => e.CountryId).HasColumnType("int(11)");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200);
 
                 entity.HasOne(d => d.Country)
                     .WithMany(p => p.City)
@@ -178,42 +189,49 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdCompany);
 
-                entity.ToTable("companies", "servicedb");
+                entity.ToTable("companies");
 
-                entity.Property(e => e.IdCompany).HasColumnName("idCompany");
+                entity.HasIndex(e => e.AddressId)
+                    .HasName("fk_Company_Addresses_idx");
+
+                entity.Property(e => e.IdCompany)
+                    .HasColumnName("idCompany")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.About).HasColumnType("mediumtext");
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.About).HasColumnType("mediumtext");
+                entity.Property(e => e.AddressId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Contacts)
                     .IsRequired()
                     .HasColumnType("tinytext");
 
+                entity.Property(e => e.IsDeleted)
+                    .HasColumnName("is_deleted")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.LastUpdate)
+                    .HasColumnName("last_update")
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(200);
 
                 entity.Property(e => e.Pan)
                     .IsRequired()
-                    .HasColumnName("CompanyPAN")
-                    .HasColumnType("varchar")
+                    .HasColumnName("PAN")
                     .HasMaxLength(45);
 
-                entity.Property(e => e.ShortName)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(45);
-
-                entity.Property(e => e.IsDeleted)
-                    .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
-
-                entity.Property(e => e.LastUpdate)
-                    .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.ShortName).HasMaxLength(45);
 
                 entity.HasOne(d => d.Address)
                     .WithMany(p => p.Companies)
@@ -226,17 +244,32 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdCompanyActivity);
 
-                entity.ToTable("companyactivity", "servicedb");
+                entity.ToTable("companyactivity");
 
-                entity.Property(e => e.IdCompanyActivity).HasColumnName("idCompanyActivity");
+                entity.HasIndex(e => e.ActivityTypeId)
+                    .HasName("fk_CompanyActivity_1_idx");
+
+                entity.HasIndex(e => e.CompanyId)
+                    .HasName("fk_CompanyActivity_2_idx");
+
+                entity.Property(e => e.IdCompanyActivity)
+                    .HasColumnName("idCompanyActivity")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.ActivityTypeId).HasColumnType("int(11)");
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.CompanyId).HasColumnType("int(11)");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.HasOne(d => d.ActivityType)
                     .WithMany(p => p.Companyactivity)
@@ -255,52 +288,57 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdCountry);
 
-                entity.ToTable("country", "servicedb");
+                entity.ToTable("country");
 
-                entity.Property(e => e.IdCountry).HasColumnName("idCountry");
+                entity.Property(e => e.IdCountry)
+                    .HasColumnName("idCountry")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                entity.Property(e => e.Name)
-                    .IsRequired()
-                    .HasColumnType("varchar")
-                    .HasMaxLength(145);
-
-                entity.Property(e => e.ShortName)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(45);
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.Name)
+                    .IsRequired()
+                    .HasMaxLength(200);
+
+                entity.Property(e => e.ShortName).HasMaxLength(45);
             });
 
             modelBuilder.Entity<Currencies>(entity =>
             {
                 entity.HasKey(e => e.IdCurrencies);
 
-                entity.ToTable("currencies", "servicedb");
+                entity.ToTable("currencies");
 
-                entity.Property(e => e.IdCurrencies).HasColumnName("idCurrencies");
+                entity.Property(e => e.IdCurrencies)
+                    .HasColumnName("idCurrencies")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
-                    .HasMaxLength(145);
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.ShortName)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(45);
             });
 
@@ -308,32 +346,41 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdFiles);
 
-                entity.ToTable("files", "servicedb");
+                entity.ToTable("files");
 
-                entity.Property(e => e.IdFiles).HasColumnName("idFiles");
+                entity.HasIndex(e => e.UserId)
+                    .HasName("fk_Files_Users_idx");
+
+                entity.Property(e => e.IdFiles)
+                    .HasColumnName("idFiles")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(45);
 
                 entity.Property(e => e.Url)
                     .IsRequired()
                     .HasColumnName("URL")
-                    .HasColumnType("varchar")
                     .HasMaxLength(45);
+
+                entity.Property(e => e.UserId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Files)
@@ -346,28 +393,48 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdGoods);
 
-                entity.ToTable("goods", "servicedb");
+                entity.ToTable("goods");
 
-                entity.Property(e => e.IdGoods).HasColumnName("idGoods");
+                entity.HasIndex(e => e.NomenclaturesId)
+                    .HasName("fk_Goods_1_idx");
+
+                entity.HasIndex(e => e.SubcategoryId)
+                    .HasName("fk_Goods_Subcategory_idx");
+
+                entity.HasIndex(e => e.UnitId)
+                    .HasName("fk_Goods_Measure_idx");
+
+                entity.Property(e => e.IdGoods)
+                    .HasColumnName("idGoods")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Cost)
-                    .HasDefaultValueSql("0.00")
-                    .HasAnnotation("Precision", 6)
-                    .HasAnnotation("Scale", 2);
-
-                entity.Property(e => e.Params).HasColumnType("mediumtext");
+                    .HasColumnType("decimal(6,2)")
+                    .HasDefaultValueSql("'0.00'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.NomenclaturesId).HasColumnType("int(11)");
+
+                entity.Property(e => e.Params).HasColumnType("mediumtext");
+
+                entity.Property(e => e.SubcategoryId).HasColumnType("int(11)");
+
+                entity.Property(e => e.UnitId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Nomenclatures)
                     .WithMany(p => p.Goods)
@@ -391,31 +458,40 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdImages);
 
-                entity.ToTable("images", "servicedb");
+                entity.ToTable("images");
 
-                entity.Property(e => e.IdImages).HasColumnName("idImages");
+                entity.HasIndex(e => e.UserId)
+                    .HasName("fk_Images_Users_idx");
+
+                entity.Property(e => e.IdImages)
+                    .HasColumnName("idImages")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(45);
 
                 entity.Property(e => e.Path)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(100);
+
+                entity.Property(e => e.UserId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Images)
@@ -427,27 +503,45 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.MsgId);
 
-                entity.ToTable("messages", "servicedb");
+                entity.ToTable("messages");
+
+                entity.HasIndex(e => e.RoomId)
+                    .HasName("fk_Messages_Room_idx");
+
+                entity.HasIndex(e => e.UsersId)
+                    .HasName("fk_Messages_Users_idx");
+
+                entity.Property(e => e.MsgId)
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.IsViewed)
                     .HasColumnName("is_viewed")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.MessageText)
+                entity.Property(e => e.RoomId).HasColumnType("int(11)");
+
+                entity.Property(e => e.Text)
                     .IsRequired()
                     .HasColumnType("mediumtext");
+
+                entity.Property(e => e.UsersId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Room)
                     .WithMany(p => p.Messages)
@@ -466,25 +560,30 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdNomenclatures);
 
-                entity.ToTable("nomenclatures", "servicedb");
+                entity.ToTable("nomenclatures");
 
-                entity.Property(e => e.IdNomenclatures).HasColumnName("idNomenclatures");
+                entity.Property(e => e.IdNomenclatures)
+                    .HasColumnName("idNomenclatures")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.NomenclaturesName)
+                entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(450);
             });
 
@@ -492,9 +591,22 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdOrderFiles);
 
-                entity.ToTable("orderfiles", "servicedb");
+                entity.ToTable("orderfiles");
 
-                entity.Property(e => e.IdOrderFiles).HasColumnName("idOrderFiles");
+                entity.HasIndex(e => e.FileId)
+                    .HasName("fk_OrderFiles_Files_idx");
+
+                entity.HasIndex(e => e.OrderId)
+                    .HasName("fk_OrderFiles_Orders_idx");
+
+                entity.Property(e => e.IdOrderFiles)
+                    .HasColumnName("idOrderFiles")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.FileId).HasColumnType("int(11)");
+
+                entity.Property(e => e.OrderId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.File)
                     .WithMany(p => p.Orderfiles)
@@ -513,9 +625,22 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdOrderImages);
 
-                entity.ToTable("orderimages", "servicedb");
+                entity.ToTable("orderimages");
 
-                entity.Property(e => e.IdOrderImages).HasColumnName("idOrderImages");
+                entity.HasIndex(e => e.ImageId)
+                    .HasName("fk_OrderImages_Images_idx");
+
+                entity.HasIndex(e => e.OrderId)
+                    .HasName("fk_OrderImages_Orders_idx");
+
+                entity.Property(e => e.IdOrderImages)
+                    .HasColumnName("idOrderImages")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.ImageId).HasColumnType("int(11)");
+
+                entity.Property(e => e.OrderId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Image)
                     .WithMany(p => p.Orderimages)
@@ -534,35 +659,43 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdOrders);
 
-                entity.ToTable("orders", "servicedb");
+                entity.ToTable("orders");
 
-                entity.Property(e => e.IdOrders).HasColumnName("idOrders");
+                entity.HasIndex(e => e.UsersId)
+                    .HasName("fk_Orders_1_idx");
+
+                entity.Property(e => e.IdOrders)
+                    .HasColumnName("idOrders")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Caption)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.Cost)
-                    .HasDefaultValueSql("0.00")
-                    .HasAnnotation("Precision", 6)
-                    .HasAnnotation("Scale", 2);
+                    .HasColumnType("decimal(6,2)")
+                    .HasDefaultValueSql("'0.00'");
 
                 entity.Property(e => e.Geomap)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(45);
+                    .IsRequired()
+                    .HasMaxLength(45)
+                    .HasDefaultValueSql("'0.0.0'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Text)
                     .IsRequired()
@@ -570,13 +703,19 @@ namespace KupcheAspNetCore.Models
 
                 entity.Property(e => e.ThereFiles)
                     .HasColumnName("there_files")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.ThereImages)
                     .HasColumnName("there_images")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
-                entity.Property(e => e.Viewers).HasDefaultValueSql("0");
+                entity.Property(e => e.UsersId).HasColumnType("int(11)");
+
+                entity.Property(e => e.Viewers)
+                    .HasColumnType("int(11)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.HasOne(d => d.Users)
                     .WithMany(p => p.Orders)
@@ -589,49 +728,72 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdPositions);
 
-                entity.ToTable("positions", "servicedb");
+                entity.ToTable("positions");
 
-                entity.Property(e => e.IdPositions).HasColumnName("idPositions");
+                entity.Property(e => e.IdPositions)
+                    .HasColumnName("idPositions")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(145);
 
-                entity.Property(e => e.ShortName)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(45);
+                entity.Property(e => e.ShortName).HasMaxLength(45);
             });
 
             modelBuilder.Entity<Pricelist>(entity =>
             {
                 entity.HasKey(e => e.IdPricelist);
 
-                entity.ToTable("pricelist", "servicedb");
+                entity.ToTable("pricelist");
 
-                entity.Property(e => e.IdPricelist).HasColumnName("idPricelist");
+                entity.HasIndex(e => e.CompanyId)
+                    .HasName("fk_Pricelist_Company_idx");
+
+                entity.HasIndex(e => e.CurrencyId)
+                    .HasName("fk_Pricelist_Currency_idx");
+
+                entity.HasIndex(e => e.GoodsId)
+                    .HasName("fk_Pricelist_Goods_idx");
+
+                entity.Property(e => e.IdPricelist)
+                    .HasColumnName("idPricelist")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.CompanyId).HasColumnType("int(11)");
+
+                entity.Property(e => e.Count).HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.CurrencyId).HasColumnType("int(11)");
+
+                entity.Property(e => e.GoodsId).HasColumnType("int(11)");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                entity.Property(e => e.Count).HasDefaultValueSql("0");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Pricelist)
@@ -656,32 +818,43 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdRooms);
 
-                entity.ToTable("rooms", "servicedb");
+                entity.ToTable("rooms");
 
-                entity.Property(e => e.IdRooms).HasColumnName("idRooms");
+                entity.HasIndex(e => e.CreatorId)
+                    .HasName("fk_Rooms_1_idx");
+
+                entity.Property(e => e.IdRooms)
+                    .HasColumnName("idRooms")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.CreatorId).HasColumnType("int(11)");
 
                 entity.Property(e => e.IsCompanyRoom)
                     .HasColumnName("is_CompanyRoom")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(100);
 
-                entity.HasOne(d => d.RoomsCreator)
+                entity.HasOne(d => d.Creator)
                     .WithMany(p => p.Rooms)
                     .HasForeignKey(d => d.CreatorId)
                     .OnDelete(DeleteBehavior.ClientSetNull)
@@ -692,19 +865,36 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdRoomUsers);
 
-                entity.ToTable("roomusers", "servicedb");
+                entity.ToTable("roomusers");
 
-                entity.Property(e => e.IdRoomUsers).HasColumnName("idRoomUsers");
+                entity.HasIndex(e => e.RoomId)
+                    .HasName("fk_RoomUsers_Rooms_idx");
+
+                entity.HasIndex(e => e.UserId)
+                    .HasName("fk_RoomUsers_Users_idx");
+
+                entity.Property(e => e.IdRoomUsers)
+                    .HasColumnName("idRoomUsers")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.IsDeleted).HasColumnName("is_deleted");
+                entity.Property(e => e.IsDeleted)
+                    .HasColumnName("is_deleted")
+                    .HasColumnType("tinyint(4)");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
+                entity.Property(e => e.RoomId).HasColumnType("int(11)");
+
+                entity.Property(e => e.UserId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Room)
                     .WithMany(p => p.Roomusers)
@@ -723,24 +913,30 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdRules);
 
-                entity.ToTable("rules", "servicedb");
+                entity.ToTable("rules");
 
-                entity.Property(e => e.IdRules).HasColumnName("idRules");
+                entity.Property(e => e.IdRules)
+                    .HasColumnName("idRules")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Name)
-                    .HasColumnType("varchar")
+                    .IsRequired()
                     .HasMaxLength(45);
             });
 
@@ -748,16 +944,25 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdSessions);
 
-                entity.ToTable("sessions", "servicedb");
+                entity.ToTable("sessions");
 
-                entity.Property(e => e.IdSessions).HasColumnName("idSessions");
+                entity.HasIndex(e => e.UserId)
+                    .HasName("fk_Sessions_Users_idx");
 
-                entity.Property(e => e.BeginTime).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                entity.Property(e => e.IdSessions)
+                    .HasColumnName("idSessions")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.BeginTime)
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Ip)
-                    .HasColumnName("SessionIP")
-                    .HasColumnType("varchar")
+                    .HasColumnName("IP")
                     .HasMaxLength(45);
+
+                entity.Property(e => e.UserId).HasColumnType("int(11)");
 
                 entity.HasOne(d => d.User)
                     .WithMany(p => p.Sessions)
@@ -770,59 +975,84 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdSignInUp);
 
-                entity.ToTable("signinup", "servicedb");
+                entity.ToTable("signinup");
 
-                entity.Property(e => e.IdSignInUp).HasColumnName("idSignInUp");
+                entity.HasIndex(e => e.Token)
+                    .HasName("Token_UNIQUE")
+                    .IsUnique();
 
-                entity.Property(e => e.ActivatedIn).HasColumnName("activated_in");
+                entity.Property(e => e.IdSignInUp)
+                    .HasColumnName("idSignInUp")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
+
+                entity.Property(e => e.ActivatedIn)
+                    .HasColumnName("activated_in")
+                    .HasColumnType("timestamp");
+
+                entity.Property(e => e.Email)
+                    .IsRequired()
+                    .HasColumnName("EMail")
+                    .HasMaxLength(200);
 
                 entity.Property(e => e.ExpiredIn)
                     .HasColumnName("expired_in")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.IsActivated)
                     .HasColumnName("is_activated")
-                    .HasDefaultValueSql("0");
-
-                entity.Property(e => e.Mail)
-                    .IsRequired()
-                    .HasColumnType("varchar")
-                    .HasMaxLength(45);
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.Token)
                     .IsRequired()
-                    .HasColumnType("varchar")
-                    .HasMaxLength(55);
+                    .HasMaxLength(200);
             });
 
             modelBuilder.Entity<Subcategory>(entity =>
             {
                 entity.HasKey(e => e.IdSubcategory);
 
-                entity.ToTable("subcategory", "servicedb");
+                entity.ToTable("subcategory");
 
-                entity.Property(e => e.IdSubcategory).HasColumnName("idSubcategory");
+                entity.HasIndex(e => e.CategoryId)
+                    .HasName("fk_Subcategory_Catrgory_idx");
+
+                entity.HasIndex(e => e.OfChild)
+                    .HasName("fk_Subcategory_1_idx");
+
+                entity.Property(e => e.IdSubcategory)
+                    .HasColumnName("idSubcategory")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.IsCategory)
-                    .HasColumnName("is_Category")
-                    .HasDefaultValueSql("0");
-
-                entity.Property(e => e.LastUpdate)
-                    .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                entity.Property(e => e.OfChild).HasColumnName("of_Child");
+                entity.Property(e => e.CategoryId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Info).HasColumnType("text");
 
+                entity.Property(e => e.IsCategory)
+                    .HasColumnName("is_Category")
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
+
+                entity.Property(e => e.LastUpdate)
+                    .HasColumnName("last_update")
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
+
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(100);
+
+                entity.Property(e => e.OfChild)
+                    .HasColumnName("of_Child")
+                    .HasColumnType("int(11)");
 
                 entity.HasOne(d => d.Category)
                     .WithMany(p => p.Subcategory)
@@ -840,21 +1070,25 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdSuperCategories);
 
-                entity.ToTable("supercategories", "servicedb");
+                entity.ToTable("supercategories");
 
-                entity.Property(e => e.IdSuperCategories).HasColumnName("idSuperCategories");
+                entity.Property(e => e.IdSuperCategories)
+                    .HasColumnName("idSuperCategories")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(50);
             });
 
@@ -862,30 +1096,34 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdUnit);
 
-                entity.ToTable("units", "servicedb");
+                entity.ToTable("units");
 
-                entity.Property(e => e.IdUnit).HasColumnName("idUnit");
+                entity.Property(e => e.IdUnit)
+                    .HasColumnName("idUnit")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
                 entity.Property(e => e.Name)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(145);
 
                 entity.Property(e => e.ShortName)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(45);
             });
 
@@ -893,58 +1131,68 @@ namespace KupcheAspNetCore.Models
             {
                 entity.HasKey(e => e.IdUsers);
 
-                entity.ToTable("users", "servicedb");
+                entity.ToTable("users");
 
-                entity.Property(e => e.IdUsers).HasColumnName("idUsers");
+                entity.HasIndex(e => e.CompanyId)
+                    .HasName("fk_Users_Companyes_idx");
+
+                entity.HasIndex(e => e.PositionId)
+                    .HasName("fk_Users_Positions_idx");
+
+                entity.HasIndex(e => e.RulesId)
+                    .HasName("fk_Users_Rules_idx");
+
+                entity.Property(e => e.IdUsers)
+                    .HasColumnName("idUsers")
+                    .HasColumnType("int(11)")
+                    .ValueGeneratedNever();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.BlockedTime)
-                    .HasColumnName("blocked_time")
-                    .HasColumnType("date");
+                entity.Property(e => e.CompanyId).HasColumnType("int(11)");
 
                 entity.Property(e => e.Email)
                     .IsRequired()
                     .HasColumnName("EMail")
-                    .HasColumnType("varchar")
                     .HasMaxLength(100);
 
                 entity.Property(e => e.FirstName)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(200);
 
                 entity.Property(e => e.IsBlocked)
                     .HasColumnName("is_blocked")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.IsDeleted)
                     .HasColumnName("is_deleted")
-                    .HasDefaultValueSql("0");
+                    .HasColumnType("tinyint(4)")
+                    .HasDefaultValueSql("'0'");
 
                 entity.Property(e => e.LastName)
                     .IsRequired()
-                    .HasColumnType("varchar")
                     .HasMaxLength(200);
 
                 entity.Property(e => e.LastUpdate)
                     .HasColumnName("last_update")
-                    .HasDefaultValueSql("CURRENT_TIMESTAMP");
+                    .HasColumnType("timestamp")
+                    .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
-                entity.Property(e => e.SecondName)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(200);
+                entity.Property(e => e.PositionId).HasColumnType("int(11)");
 
-                entity.Property(e => e.Telephone)
-                    .HasColumnType("varchar")
-                    .HasMaxLength(11);
+                entity.Property(e => e.RulesId).HasColumnType("int(11)");
+
+                entity.Property(e => e.SecondName).HasMaxLength(200);
+
+                entity.Property(e => e.Telephone).HasMaxLength(20);
 
                 entity.HasOne(d => d.Company)
                     .WithMany(p => p.Users)
                     .HasForeignKey(d => d.CompanyId)
-                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("fk_Users_Company");
 
                 entity.HasOne(d => d.Position)

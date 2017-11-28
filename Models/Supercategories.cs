@@ -13,8 +13,8 @@ namespace KupcheAspNetCore
 
         public int IdSuperCategories { get; set; }
         public string Name { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public ICollection<Activitytypes> Activitytypes { get; set; }
         public ICollection<Subcategory> Subcategory { get; set; }

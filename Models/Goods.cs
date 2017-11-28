@@ -17,8 +17,8 @@ namespace KupcheAspNetCore
         public int? UnitId { get; set; }
         public int SubcategoryId { get; set; }
         public sbyte? IsDeleted { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public Nomenclatures Nomenclatures { get; set; }
         public Subcategory Subcategory { get; set; }

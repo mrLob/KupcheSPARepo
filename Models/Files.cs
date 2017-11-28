@@ -15,8 +15,8 @@ namespace KupcheAspNetCore
         public string Url { get; set; }
         public int UserId { get; set; }
         public sbyte? IsDeleted { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public Users User { get; set; }
         public ICollection<Orderfiles> Orderfiles { get; set; }

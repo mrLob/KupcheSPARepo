@@ -21,8 +21,8 @@ namespace KupcheAspNetCore
         public sbyte? ThereImages { get; set; }
         public sbyte? ThereFiles { get; set; }
         public sbyte? IsDeleted { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public Users Users { get; set; }
         public ICollection<Orderfiles> Orderfiles { get; set; }

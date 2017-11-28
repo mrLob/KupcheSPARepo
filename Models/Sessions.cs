@@ -8,7 +8,7 @@ namespace KupcheAspNetCore
         public int IdSessions { get; set; }
         public string Ip { get; set; }
         public int UserId { get; set; }
-        public DateTime BeginTime { get; set; }
+        public DateTimeOffset BeginTime { get; set; }
 
         public Users User { get; set; }
     }

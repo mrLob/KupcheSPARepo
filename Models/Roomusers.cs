@@ -9,8 +9,8 @@ namespace KupcheAspNetCore
         public int UserId { get; set; }
         public int RoomId { get; set; }
         public sbyte? IsDeleted { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public Rooms Room { get; set; }
         public Users User { get; set; }

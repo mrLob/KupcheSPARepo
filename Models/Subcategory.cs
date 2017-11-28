@@ -17,8 +17,8 @@ namespace KupcheAspNetCore
         public int CategoryId { get; set; }
         public sbyte? IsCategory { get; set; }
         public int? OfChild { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public Supercategories Category { get; set; }
         public Subcategory OfChildNavigation { get; set; }

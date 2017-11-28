@@ -16,10 +16,10 @@ namespace KupcheAspNetCore
         public int CreatorId { get; set; }
         public sbyte? IsDeleted { get; set; }
         public sbyte? IsCompanyRoom { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
-        public Users RoomsCreator { get; set; }
+        public Users Creator { get; set; }
         public ICollection<Messages> Messages { get; set; }
         public ICollection<Roomusers> Roomusers { get; set; }
     }

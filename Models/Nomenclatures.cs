@@ -11,10 +11,10 @@ namespace KupcheAspNetCore
         }
 
         public int IdNomenclatures { get; set; }
-        public string NomenclaturesName { get; set; }
+        public string Name { get; set; }
         public sbyte? IsDeleted { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public ICollection<Goods> Goods { get; set; }
     }

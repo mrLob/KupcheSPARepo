@@ -27,9 +27,8 @@ namespace KupcheAspNetCore
         public int CompanyId { get; set; }
         public sbyte? IsDeleted { get; set; }
         public sbyte? IsBlocked { get; set; }
-        public DateTime? BlockedTime { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public Companies Company { get; set; }
         public Positions Position { get; set; }

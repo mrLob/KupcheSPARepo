@@ -12,12 +12,12 @@ namespace KupcheAspNetCore
         }
 
         public int IdActivityTypes { get; set; }
-        public string ActivityTypesName { get; set; }
+        public string Name { get; set; }
         public int? ChildOf { get; set; }
         public int? CategoryId { get; set; }
         public sbyte? IsDeleted { get; set; }
-        public DateTime AdditionTime { get; set; }
-        public DateTime LastUpdate { get; set; }
+        public DateTimeOffset AdditionTime { get; set; }
+        public DateTimeOffset LastUpdate { get; set; }
 
         public Supercategories Category { get; set; }
         public Activitytypes ChildOfNavigation { get; set; }
