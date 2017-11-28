@@ -14,10 +14,11 @@ namespace  KupcheAspNetCore.Controllers
         [HttpGet]
         public IEnumerable<Orders> GetOrders()
         {
-            using(servicedbContext db = new servicedbContext()){
-                var tender =  db.Orders.ToList();
-                
-            return tender;
+            using(servicedbContext db = new servicedbContext())
+            {
+                IEnumerable<Orders> tender =  db.Orders.ToList();
+                Console.WriteLine("Get response orders!");
+                return tender;
             }
         }
 
@@ -29,6 +30,7 @@ namespace  KupcheAspNetCore.Controllers
                 using(servicedbContext db = new servicedbContext()){
                     db.AddAsync(neworder);
                     db.SaveChangesAsync();
+                    Console.WriteLine("Post response orders");
                     return Ok(neworder);
                 }
             }

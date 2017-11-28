@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Order } from '../shared/models';
+import { Observable } from 'rxjs/Observable';
 
 @Injectable()
 export class OrdersService {
@@ -10,11 +11,11 @@ export class OrdersService {
     }
 
     getOrders(){
-        return this.http.get(this.url);
+        return this.http.get<Order[]>(this.url);
     }
 
     createOrders(neworder: Order){
-        return this.http.post(this.url,neworder);
+        return this.http.post<Order>(this.url,neworder);
     }
     
 }

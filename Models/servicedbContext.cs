@@ -1,4 +1,5 @@
 ﻿using System;
+using Microsoft.Extensions.Configuration;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Metadata;
 using MySQL.Data.EntityFrameworkCore.Extensions;
@@ -34,30 +35,33 @@ namespace KupcheAspNetCore.Models
         public virtual DbSet<Units> Units { get; set; }
         public virtual DbSet<Users> Users { get; set; }
 
+        // public servicedbContext(DbContextOptions<servicedbContext> options)
+        // : base(options)
+        // {
+            
+        // }
+        
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
-            if (!optionsBuilder.IsConfigured)
-            {
 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. See http://go.microsoft.com/fwlink/?LinkId=723263 for guidance on storing connection strings.
                 //"User Id=root ;password=root;Host=127.0.0.1;Database=servicedb;"
-                optionsBuilder.UseMySql(GetConnectionString());
                 
-            }
+            optionsBuilder.UseMySql("server=86.57.161.56;database=servicedb;userid=root;password=root;");
         }
 
-        private static string GetConnectionString()
-        {
-            const string databaseName = "servicedb";
-            const string databaseUser = "root";
-            const string databasePass = "root";
-            const string databaseHost = "86.57.161.56";
+        // private static string GetConnectionString()
+        // {
+        //     const string databaseName = "servicedb";
+        //     const string databaseUser = "root";
+        //     const string databasePass = "root";
+        //     const string databaseHost = "86.57.161.56";
             
-            return $"Server={databaseHost};" +
-                   $"database={databaseName};" +
-                   $"uid={databaseUser};" +
-                   $"pwd={databasePass};" +
-                   $"pooling=true;";
-        }
+        //     return $"Server={databaseHost};" +
+        //            $"database={databaseName};" +
+        //            $"uid={databaseUser};" +
+        //            $"pwd={databasePass};" +
+        //            $"pooling=true;";
+        // }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

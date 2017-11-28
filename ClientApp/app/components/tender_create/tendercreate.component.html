@@ -8,18 +8,44 @@
             <mat-card-content>
                 <div class="form-group">
                     <mat-form-field class="width-60p">
-                        <input matInput name="Caption" [(ngModel)]="tender.caption" placeholder="Тут введите заголовок" value="">
+                        <input matInput name="Caption" [(ngModel)]="order.Caption" placeholder="Тут введите заголовок" value="">
                     </mat-form-field> 
                     <br>
                     <mat-form-field class="full-width">
-                            <textarea matInput name="Description" [(ngModel)]="tender.text" placeholder="А тут введите описание работ" value=""> </textarea>
-                    </mat-form-field>               
+                            <textarea matInput name="Description" [(ngModel)]="order.Text" placeholder="А тут введите описание работ" value=""> </textarea>
+                    </mat-form-field>    
+                    <br>
+                    <mat-form-field class="full-width">
+                            <textarea matInput name="Cost" [(ngModel)]="order.Cost" placeholder="А тут стоимость работ" value=""> </textarea>
+                    </mat-form-field>            
                 </div>
             </mat-card-content>
             <mat-card-actions>
-                <p>{{tender.text}}</p>
                 <button mat-raised-button align="end" color="accent" type="submit">Отправить</button>
             </mat-card-actions>
 
         </form>
+     </mat-card>
+     <mat-card class="card-big">
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <td>Модель</td>
+                    <td>Производитель</td>
+                    <td>Цена</td>
+                    <td></td>
+                </tr>
+            </thead>
+            <tbody>    
+                <tr *ngFor="let ord of orders">
+                        <td>{{ord.Caption}}</td>
+                        <td>{{ord.Text}}</td>
+                        <td>{{ord.Cost}}</td>
+                        <td>
+                            <button class="btn btn-sm btn-primary" >Изменить</button>
+                            <button class="btn btn-sm btn-danger" >Удалить</button>
+                        </td>
+                </tr>
+            </tbody>
+        </table>    
      </mat-card>
