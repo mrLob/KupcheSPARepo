@@ -26,26 +26,23 @@
 
         </form>
      </mat-card>
+  
      <mat-card class="card-big">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <td>Модель</td>
-                    <td>Производитель</td>
-                    <td>Цена</td>
-                    <td></td>
-                </tr>
-            </thead>
-            <tbody>    
-                <tr *ngFor="let ord of orders">
-                        <td>{{ord.Caption}}</td>
-                        <td>{{ord.Text}}</td>
-                        <td>{{ord.Cost}}</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary" >Изменить</button>
-                            <button class="btn btn-sm btn-danger" >Удалить</button>
-                        </td>
-                </tr>
-            </tbody>
-        </table>    
-     </mat-card>
+            <table class="table table-striped">
+                <thead>
+                    <tr>
+                        <td>Модель</td>
+                        <td>Производитель</td>
+                        <td>Цена</td>
+                        <td></td>
+                    </tr>
+                </thead>
+                <tbody>   
+                    <tr *ngFor="let ord of orders">
+                        <td>{{ord.caption}}</td>
+                        <td>{{ord.text}}</td>
+                        <td>{{ord.cost}}</td>
+                    </tr>                   
+                </tbody>
+            </table>  
+    </mat-card>

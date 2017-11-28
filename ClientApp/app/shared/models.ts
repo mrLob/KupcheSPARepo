@@ -1,9 +1,10 @@
 export class Order {
     constructor(
-        public Caption?: string,
-        public Text?: string,
+        public idOrders?: number,
+        public caption?: string,
+        public text?: string,
         public Geomap?:string,
-        public Cost?: number,
+        public cost?: number,
         public UsersId?: number,
         public ThereImages?: boolean,
         public ThereFiles?: boolean

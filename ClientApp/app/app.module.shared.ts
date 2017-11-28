@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { 
     MatButtonModule, MatButton, MatFormFieldModule, 
@@ -16,13 +17,13 @@ import {
     MatSortModule, MatStepperModule, MatTabsModule,
     MatToolbarModule, MatTooltipModule, MatNativeDateModule
     } from '@angular/material';
-
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { TenderCreateComponent } from './components/tender_create/tendercreate.component';
+
 
 @NgModule({
     declarations: [
@@ -67,6 +68,7 @@ import { TenderCreateComponent } from './components/tender_create/tendercreate.c
         MatTooltipModule,
         MatNativeDateModule,
         CommonModule,
+        HttpClientModule,
         HttpModule,
         FormsModule,
         RouterModule.forRoot([

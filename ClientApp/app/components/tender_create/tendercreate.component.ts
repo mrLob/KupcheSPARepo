@@ -11,10 +11,10 @@ import { Order } from "../../shared/models";
     providers: [OrdersService]
 })
 export class TenderCreateComponent implements OnInit{  
-    order: Order= new Order();
-    orders: Order[];
-    private ordersService: OrdersService
-
+    public order: Order= new Order();
+    public orders: Order[];
+    
+    constructor(private ordersService: OrdersService){}
 
     ngOnInit(){
         this.loadOrders();
@@ -23,6 +23,7 @@ export class TenderCreateComponent implements OnInit{
     loadOrders(){
         this.ordersService.getOrders()
         .subscribe((data: Order[]) => this.orders = data);
+        
     }
 
     onSubmit(){
