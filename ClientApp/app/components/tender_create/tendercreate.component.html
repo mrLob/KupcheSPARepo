@@ -16,8 +16,8 @@
                     </mat-form-field>    
                     <br>
                     <mat-form-field class="full-width">
-                            <textarea matInput name="Cost" [(ngModel)]="order.Cost" placeholder="А тут стоимость работ" value=""> </textarea>
-                    </mat-form-field>            
+                            <input matInput name="Cost" type="number" [(ngModel)]="order.Cost" placeholder="А тут стоимость работ" value="">
+                    </mat-form-field>        
                 </div>
             </mat-card-content>
             <mat-card-actions>
@@ -42,6 +42,7 @@
                         <td>{{ord.caption}}</td>
                         <td>{{ord.text}}</td>
                         <td>{{ord.cost}}</td>
+                        <td>{{ord.Geomap}}</td>
                     </tr>                   
                 </tbody>
             </table>  
