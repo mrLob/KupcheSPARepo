@@ -23,14 +23,27 @@ namespace  KupcheAspNetCore.Controllers
         }
 
         [HttpPost]
-        public IActionResult PostOrders([FromBody]Orders neworder)
+        public IActionResult PostOrders([FromBody]Orders order)
         {
             if(ModelState.IsValid)
             {
+                Orders neworder = new Orders();
+                
+                neworder.Caption = order.Caption;
+                neworder.Text = order.Text;
+                neworder.Cost = order.Cost;
+                neworder.UsersId = 1;
+                
                 using(servicedbContext db = new servicedbContext()){
-                    db.AddAsync(neworder);
-                    db.SaveChangesAsync();
-                    Console.WriteLine("Post response orders");
+                    if( db.Orders.LastOrDefault(o => o.IdOrders > 0)!= null){
+                        neworder.IdOrders = db.Orders.LastOrDefault().IdOrders +1;
+                    
+                    }else{
+                        neworder.IdOrders = 1;
+                    }
+                    db.Orders.Add(neworder);
+                    db.SaveChanges();
+                    Console.WriteLine("Post response order: "+ neworder.Caption.ToString());
                     return Ok(neworder);
                 }
             }
