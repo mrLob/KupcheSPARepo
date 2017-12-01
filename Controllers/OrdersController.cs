@@ -34,11 +34,14 @@ namespace  KupcheAspNetCore.Controllers
                 neworder.Cost = order.Cost;
                 neworder.UsersId = 1;
                 
-                using(servicedbContext db = new servicedbContext()){
-                    if( db.Orders.LastOrDefault(o => o.IdOrders > 0)!= null){
-                        neworder.IdOrders = db.Orders.LastOrDefault().IdOrders +1;
-                    
-                    }else{
+                using(servicedbContext db = new servicedbContext())
+                {
+                    if( db.Orders.LastOrDefault( o => o.IdOrders > 0 ) != null )
+                    {
+                        neworder.IdOrders = db.Orders.LastOrDefault().IdOrders +1;                    
+                    }
+                    else
+                    {
                         neworder.IdOrders = 1;
                     }
                     db.Orders.Add(neworder);
@@ -52,7 +55,6 @@ namespace  KupcheAspNetCore.Controllers
                 return BadRequest(ModelState);
             }
         }
-        
     }
     
 }
