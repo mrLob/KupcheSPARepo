@@ -66,7 +66,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdActivityTypes)
                     .HasColumnName("idActivityTypes")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -114,7 +114,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdAddress)
                     .HasColumnName("idAddress")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -166,7 +166,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdCity)
                     .HasColumnName("idCity")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -203,7 +203,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdCompany)
                     .HasColumnName("idCompany")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.About).HasColumnType("mediumtext");
 
@@ -261,7 +261,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdCompanyActivity)
                     .HasColumnName("idCompanyActivity")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.ActivityTypeId).HasColumnType("int(11)");
 
@@ -299,7 +299,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdCountry)
                     .HasColumnName("idCountry")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -327,7 +327,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdCurrencies)
                     .HasColumnName("idCurrencies")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -360,7 +360,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdFiles)
                     .HasColumnName("idFiles")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -413,7 +413,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdGoods)
                     .HasColumnName("idGoods")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -472,7 +472,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdImages)
                     .HasColumnName("idImages")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -519,7 +519,7 @@ namespace KupcheAspNetCore.Models
 
                 entity.Property(e => e.MsgId)
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -571,7 +571,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdNomenclatures)
                     .HasColumnName("idNomenclatures")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -608,7 +608,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdOrderFiles)
                     .HasColumnName("idOrderFiles")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.FileId).HasColumnType("int(11)");
 
@@ -642,7 +642,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdOrderImages)
                     .HasColumnName("idOrderImages")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.ImageId).HasColumnType("int(11)");
 
@@ -673,7 +673,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdOrders)
                     .HasColumnName("idOrders")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -739,7 +739,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdPositions)
                     .HasColumnName("idPositions")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -776,7 +776,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdPricelist)
                     .HasColumnName("idPricelist")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -832,7 +832,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdRooms)
                     .HasColumnName("idRooms")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -882,7 +882,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdRoomUsers)
                     .HasColumnName("idRoomUsers")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -924,7 +924,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdRules)
                     .HasColumnName("idRules")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -958,7 +958,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdSessions)
                     .HasColumnName("idSessions")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.BeginTime)
                     .HasColumnType("timestamp")
@@ -990,7 +990,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdSignInUp)
                     .HasColumnName("idSignInUp")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.ActivatedIn)
                     .HasColumnName("activated_in")
@@ -1031,7 +1031,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdSubcategory)
                     .HasColumnName("idSubcategory")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -1081,7 +1081,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdSuperCategories)
                     .HasColumnName("idSuperCategories")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -1107,7 +1107,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdUnit)
                     .HasColumnName("idUnit")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")
@@ -1151,7 +1151,7 @@ namespace KupcheAspNetCore.Models
                 entity.Property(e => e.IdUsers)
                     .HasColumnName("idUsers")
                     .HasColumnType("int(11)")
-                    .ValueGeneratedNever();
+                    .ValueGeneratedOnAdd();
 
                 entity.Property(e => e.AdditionTime)
                     .HasColumnName("addition_time")

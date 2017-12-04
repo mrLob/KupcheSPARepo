@@ -23,7 +23,8 @@ import { HomeComponent } from './components/home/home.component';
 import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { TenderCreateComponent } from './components/tender_create/tendercreate.component';
-
+import { OrdersComponent } from './components/orders/orders.component';
+import { OrdersFormComponent} from './components/orders/form.orders.component';
 
 @NgModule({
     declarations: [
@@ -32,7 +33,9 @@ import { TenderCreateComponent } from './components/tender_create/tendercreate.c
         CounterComponent,
         FetchDataComponent,
         HomeComponent,
-        TenderCreateComponent
+        TenderCreateComponent,
+        OrdersComponent,
+        OrdersFormComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -76,6 +79,7 @@ import { TenderCreateComponent } from './components/tender_create/tendercreate.c
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },            
+            { path: 'orders', component: OrdersComponent },            
             { path: 'tender-create', component: TenderCreateComponent },
             { path: '**', redirectTo: 'home' }
         ])

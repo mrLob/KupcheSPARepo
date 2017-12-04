@@ -12,8 +12,6 @@ namespace KupcheAspNetCore
             Orderfiles = new HashSet<Orderfiles>();
             Orderimages = new HashSet<Orderimages>();
         }
-        [Key]
-        [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         public int IdOrders { get; set; }
         public string Caption { get; set; }
         public string Text { get; set; }

@@ -1,0 +1,19 @@
+.button-row {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+  }
+.card-big{
+    width: 90%;
+    margin-top: 5%;
+}
+.card-title{
+    font-size: 20pt;
+    color: #259f6c;
+}
+.full-width{
+    width: 100%;
+}
+.width-60p{
+    width: 60%;
+}

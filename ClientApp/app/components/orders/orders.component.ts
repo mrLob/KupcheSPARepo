@@ -1,17 +1,19 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms/src/model';
 
+import { OrdersFormComponent } from "./form.orders.component";
+
 import { OrdersService } from "../../services/orders.service";
 import { Order } from "../../shared/models";
 
 @Component({
-    selector: 'tender-create',
-    templateUrl: './tendercreate.component.html',
-    styleUrls: ["./tendercreate.component.css"],
+    selector: 'orders',
+    templateUrl: './orders.component.html',
+    styleUrls: ["./orders.component.css"],
     providers: [OrdersService]
 })
-export class TenderCreateComponent implements OnInit{  
-    public order: Order= new Order();
+export class OrdersComponent implements OnInit {
+    public order: Order = new Order();
     public orders: Order[];
     
     constructor(private ordersService: OrdersService){}
@@ -25,9 +27,4 @@ export class TenderCreateComponent implements OnInit{
         .subscribe((data: Order[]) => this.orders = data);
         
     }
-
-    onSubmit(){
-        this.ordersService.createOrders(this.order)
-        .subscribe((data: Order)=> this.orders.push(data));    
-    }    
 }
