@@ -18,7 +18,6 @@ const treeShakableModules = [
 const nonTreeShakableModules = [
     'bootstrap',
     'bootstrap/dist/css/bootstrap.css',
-    '/ClientApp/theme.scss',
     'es6-promise',
     'es6-shim',
     'event-source-polyfill',
