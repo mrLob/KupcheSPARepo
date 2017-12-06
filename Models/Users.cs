@@ -29,6 +29,8 @@ namespace KupcheAspNetCore
         public sbyte? IsBlocked { get; set; }
         public DateTimeOffset AdditionTime { get; set; }
         public DateTimeOffset LastUpdate { get; set; }
+        public byte[] PassHash { get; set; }
+        public byte[] PassSalt { get; set; }
 
         public Companies Company { get; set; }
         public Positions Position { get; set; }

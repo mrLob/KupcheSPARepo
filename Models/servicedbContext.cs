@@ -1188,6 +1188,10 @@ namespace KupcheAspNetCore.Models
                     .HasColumnType("timestamp")
                     .HasDefaultValueSql("'CURRENT_TIMESTAMP'");
 
+                entity.Property(e => e.PassHash).HasColumnType("binary(1)");
+
+                entity.Property(e => e.PassSalt).HasColumnType("binary(1)");
+
                 entity.Property(e => e.PositionId).HasColumnType("int(11)");
 
                 entity.Property(e => e.RulesId).HasColumnType("int(11)");

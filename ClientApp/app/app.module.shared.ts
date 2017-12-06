@@ -17,6 +17,9 @@ import {
     MatSortModule, MatStepperModule, MatTabsModule,
     MatToolbarModule, MatTooltipModule, MatNativeDateModule
     } from '@angular/material';
+
+import { AppConfig } from './app.config';
+import { AuthGuard } from './_guards/auth.guard';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
 import { HomeComponent } from './components/home/home.component';
@@ -25,6 +28,7 @@ import { CounterComponent } from './components/counter/counter.component';
 import { TenderCreateComponent } from './components/tender_create/tendercreate.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrdersFormComponent} from './components/orders/form.orders.component';
+import { LoginComponent } from './components/login/login.component'; 
 
 @NgModule({
     declarations: [
@@ -35,7 +39,8 @@ import { OrdersFormComponent} from './components/orders/form.orders.component';
         HomeComponent,
         TenderCreateComponent,
         OrdersComponent,
-        OrdersFormComponent
+        OrdersFormComponent,
+        LoginComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -75,14 +80,20 @@ import { OrdersFormComponent} from './components/orders/form.orders.component';
         HttpModule,
         FormsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full' },
+            { path: '', redirectTo: 'home', pathMatch: 'full',canActivate: [AuthGuard] },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
             { path: 'fetch-data', component: FetchDataComponent },            
             { path: 'orders', component: OrdersComponent },            
             { path: 'tender-create', component: TenderCreateComponent },
+            { path: 'login', component: LoginComponent },
             { path: '**', redirectTo: 'home' }
         ])
+    ],
+    providers:[
+        AppConfig,
+        AuthGuard
+
     ]
 })
 export class AppModuleShared {

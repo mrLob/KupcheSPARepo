@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
 
 namespace KupcheAspNetCore
 {
@@ -12,6 +10,7 @@ namespace KupcheAspNetCore
             Orderfiles = new HashSet<Orderfiles>();
             Orderimages = new HashSet<Orderimages>();
         }
+
         public int IdOrders { get; set; }
         public string Caption { get; set; }
         public string Text { get; set; }
