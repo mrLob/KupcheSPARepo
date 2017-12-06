@@ -5,8 +5,9 @@ import { AlertService } from '../../services/alert.service';
 import { AuthenticationService } from '../../services/authentication.service';
 
 @Component({
-    moduleId: module.id,
-    templateUrl: 'login.component.html'
+    selector: 'login',
+    templateUrl: 'login.component.html',
+    providers: [AuthenticationService,AlertService]
 })
  
 export class LoginComponent implements OnInit {

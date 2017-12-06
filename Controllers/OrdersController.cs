@@ -44,6 +44,8 @@ namespace  KupcheAspNetCore.Controllers
                     {
                         neworder.IdOrders = 1;
                     }
+
+                    Console.WriteLine("Post order: "+ neworder.Caption.ToString());
                     db.Orders.Add(neworder);
                     db.SaveChanges();
                     Console.WriteLine("Post response order: "+ neworder.Caption.ToString());

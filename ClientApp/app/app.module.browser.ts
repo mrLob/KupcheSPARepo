@@ -2,6 +2,9 @@ import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppModuleShared } from './app.module.shared';
 import { AppComponent } from './components/app/app.component';
+import { AuthenticationService } from './services/authentication.service';
+import { AuthGuard } from './_guards/auth.guard';
+import { AlertService } from './services/alert.service'
 
 @NgModule({
     bootstrap: [ AppComponent ],
@@ -10,7 +13,10 @@ import { AppComponent } from './components/app/app.component';
         AppModuleShared
     ],
     providers: [
-        { provide: 'BASE_URL', useFactory: getBaseUrl}
+        { provide: 'BASE_URL', useFactory: getBaseUrl },
+        AuthenticationService,
+        AuthGuard,
+        AlertService
     ]
 })
 export class AppModule {

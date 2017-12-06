@@ -74,6 +74,7 @@ namespace KupcheAspNetCore.Controllers
             var regUser = _mapper.Map<Users>(userDto);
             try
             {
+                Console.WriteLine("Register user!");
                 _userService.Create(regUser, userDto.Pass);
                 return Ok();
             }

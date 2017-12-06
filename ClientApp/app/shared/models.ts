@@ -20,7 +20,8 @@ export class User{
         public email?: string,
         public positionId?: number,
         public rulesId?: number,
-        public companyId?: number
+        public companyId?: number,
+        public pass?: string
     ){}
 }
 export class Files{

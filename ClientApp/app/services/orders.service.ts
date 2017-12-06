@@ -2,13 +2,12 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Order } from '../shared/models';
 import { Observable } from 'rxjs/Observable';
-import { AppConfig } from "../app.config";
 
 @Injectable()
 export class OrdersService {
 
 
-    constructor(private http: HttpClient,private config: AppConfig) {
+    constructor(private http: HttpClient) {
     }
     //private url = this.config.apiUrl+"/orders";
     private url = "api/orders";

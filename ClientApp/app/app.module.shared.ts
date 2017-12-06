@@ -18,7 +18,6 @@ import {
     MatToolbarModule, MatTooltipModule, MatNativeDateModule
     } from '@angular/material';
 
-import { AppConfig } from './app.config';
 import { AuthGuard } from './_guards/auth.guard';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -29,6 +28,8 @@ import { TenderCreateComponent } from './components/tender_create/tendercreate.c
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrdersFormComponent} from './components/orders/form.orders.component';
 import { LoginComponent } from './components/login/login.component'; 
+import { RegisterComponent } from './components/register/register.component'; 
+import { AlertComponent } from './components/alert/alert.component';
 
 @NgModule({
     declarations: [
@@ -40,7 +41,9 @@ import { LoginComponent } from './components/login/login.component';
         TenderCreateComponent,
         OrdersComponent,
         OrdersFormComponent,
-        LoginComponent
+        LoginComponent,
+        RegisterComponent,
+        AlertComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -80,20 +83,17 @@ import { LoginComponent } from './components/login/login.component';
         HttpModule,
         FormsModule,
         RouterModule.forRoot([
-            { path: '', redirectTo: 'home', pathMatch: 'full',canActivate: [AuthGuard] },
+            { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
             { path: 'counter', component: CounterComponent },
-            { path: 'fetch-data', component: FetchDataComponent },            
+            { path: 'fetch-data', component: FetchDataComponent,canActivate: [AuthGuard] },            
             { path: 'orders', component: OrdersComponent },            
             { path: 'tender-create', component: TenderCreateComponent },
             { path: 'login', component: LoginComponent },
+            { path: 'register', component: RegisterComponent },
+            
             { path: '**', redirectTo: 'home' }
         ])
-    ],
-    providers:[
-        AppConfig,
-        AuthGuard
-
     ]
 })
 export class AppModuleShared {

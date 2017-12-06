@@ -18,45 +18,59 @@ namespace KupcheAspNetCore.Services
     public class UserService : IUserService
     {
         private servicedbContext _context ;
-        public UserService(servicedbContext context)
+        public UserService()
         {
-            _context = context;
+            _context = new servicedbContext();
         }
         public Users Authenticate(string username, string pass)
         {
             if( string.IsNullOrWhiteSpace(username) || string.IsNullOrEmpty(pass) ) 
                 return null;
+            using(servicedbContext db = new servicedbContext())
+            {
+                var user = _context.Users.SingleOrDefault(x => x.Email == username);
 
-            var user = _context.Users.SingleOrDefault(x => x.Email == username);
-
-            if(user == null) 
-                return null;
-            if(!VerifyPasswordHash(pass,user.PassHash,user.PassSalt))
-                return null;
-            return user;
+                if(user == null) 
+                    return null;
+                if(!VerifyPasswordHash(pass,user.PassHash,user.PassSalt))
+                    return null;
+                return user;
+            }
         }
         public IEnumerable<Users> GetAll()
-        {
-            return _context.Users;
+        {   
+            using(servicedbContext db = new servicedbContext())
+            {
+                return db.Users;
+            }
         }
         public Users GetById(int id)
-        {
-            return _context.Users.Find(id);
+        {   
+            using(servicedbContext db = new servicedbContext())
+            {
+                return db.Users.Find(id);
+            }
         }
-        public Users Create(Users user, string pass)
+        public Users Create(Users newUser, string pass)
         {
+            Console.WriteLine("Create user!");
             if(string.IsNullOrWhiteSpace(pass))
                 throw new AppException("Password is required");
-            if(_context.Users.Any(x => x.Email == user.Email))
-                throw new ApplicationException("Username "+user.Email+" is already taken");
+            using(servicedbContext db = new servicedbContext())
+            {
+                if(_context.Users.Any(x => x.Email == newUser.Email))
+                    throw new ApplicationException("Username "+newUser.Email+" is already taken");
+            }
             byte[] passHash,passSalt;
+            
             CreatePasswordHash(pass,out passHash,out passSalt);
-            user.PassHash = passHash;
-            user.PassSalt = passSalt;
-
-            _context.Users.Add(user);
-            _context.SaveChanges();
-            return user;
+            newUser.PassHash = passHash;
+            newUser.PassSalt = passSalt;
+            using(servicedbContext db = new servicedbContext()){
+                db.Users.Add(newUser);
+                db.SaveChanges();
+            }
+            return newUser;
         }
         public void Update(Users userParam,string pass)
         {
@@ -99,6 +113,7 @@ namespace KupcheAspNetCore.Services
         }
         private static void CreatePasswordHash(string password, out byte[] passwordHash, out byte[] passwordSalt)
         {
+            Console.WriteLine("Pass hash create!");
             if (password == null) throw new ArgumentNullException("password");
             if (string.IsNullOrWhiteSpace(password)) throw new ArgumentException("Value cannot be empty or whitespace only string.", "password");
  

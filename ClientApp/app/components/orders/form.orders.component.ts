@@ -10,15 +10,22 @@ import { Order } from "../../shared/models";
     providers: [OrdersService]
 })
 export class OrdersFormComponent implements OnInit {
-    
     public order: Order= new Order();
+    public orders: Order[];
     
-    constructor(private ordersService: OrdersService) { }
+    constructor(private ordersService: OrdersService){}
 
-    ngOnInit() { }
+    ngOnInit(){
+        this.loadOrders();
+    }
+
+    loadOrders(){
+        this.ordersService.getOrders()
+        .subscribe((data: Order[]) => this.orders = data);
+        
+    }
 
     onSubmit(){
-        this.ordersService.createOrders(this.order);
-        return this.order;    
-    }  
+        this.ordersService.createOrders(this.order);    
+    } 
 }
