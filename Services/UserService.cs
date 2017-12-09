@@ -53,6 +53,9 @@ namespace KupcheAspNetCore.Services
         }
         public Users Create(Users newUser, string pass)
         {
+            newUser.CompanyId = 1;
+            newUser.RulesId = 1;
+            newUser.PositionId = 1;
             Console.WriteLine("Create user!");
             if(string.IsNullOrWhiteSpace(pass))
                 throw new AppException("Password is required");

@@ -21,7 +21,7 @@ export class UserService {
     }
  
     create(user: User) {
-        return this.httpClient.post<User>(this.url,user);
+        return this.http.post(this.url,user,this.jwt());
     }
  
     update(user: User) {
