@@ -1,7 +1,7 @@
 {
   "name": "KupcheAspNetCore",
   "private": true,
-  "version": "0.0.3",
+  "version": "0.0.4",
   "scripts": {
     "build": "webpack ",
     "build-conf": "webpack --config webpack.config.vendor.js",

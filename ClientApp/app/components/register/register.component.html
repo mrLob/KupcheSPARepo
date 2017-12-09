@@ -24,9 +24,7 @@
             <label>Email</label>
             <input class="form-control" name="email" [(ngModel)]="user.email" #email="ngModel" 
                 required email />
-            <span *ngIf="email.invalid || email.touched" class="alert alert-danger">
-              Некорректный email
-            </span>
+            <div *ngIf="f.submitted && !email.valid" class="help-block">Некорректный е-меил!</div>
     </div>
     <div class="form-group" [ngClass]="{ 'has-error': f.submitted && !pass.valid }">
         <label for="pass">Пароль</label>
