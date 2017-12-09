@@ -7,6 +7,7 @@ import { Order } from "../../shared/models";
 @Component({
     selector: 'order-form',
     templateUrl: './form.orders.component.html',
+    styleUrls: ['./orders.component.css'],
     providers: [OrdersService]
 })
 export class OrdersFormComponent implements OnInit {
