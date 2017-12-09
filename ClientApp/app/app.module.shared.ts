@@ -30,6 +30,7 @@ import { OrdersFormComponent} from './components/orders/form.orders.component';
 import { LoginComponent } from './components/login/login.component'; 
 import { RegisterComponent } from './components/register/register.component'; 
 import { AlertComponent } from './components/alert/alert.component';
+import { ToolbarComponent } from './components/toolbar/toolbar.component';
 
 @NgModule({
     declarations: [
@@ -43,7 +44,8 @@ import { AlertComponent } from './components/alert/alert.component';
         OrdersFormComponent,
         LoginComponent,
         RegisterComponent,
-        AlertComponent
+        AlertComponent,
+        ToolbarComponent
     ],
     imports: [
         MatAutocompleteModule,
@@ -91,7 +93,7 @@ import { AlertComponent } from './components/alert/alert.component';
             { path: 'tender-create', component: TenderCreateComponent },
             { path: 'login', component: LoginComponent },
             { path: 'register', component: RegisterComponent },
-            
+
             { path: '**', redirectTo: 'home' }
         ])
     ]
