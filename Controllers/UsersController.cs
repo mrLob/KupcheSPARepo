@@ -36,7 +36,7 @@ namespace KupcheAspNetCore.Controllers
         [AllowAnonymous]
         [HttpPost("authenticate")]
         public IActionResult Authenticate([FromBody]UserDto userDto)
-        {
+        {            
             var authUser = _userService.Authenticate(userDto.Email, userDto.Pass);
             if( authUser == null) 
                 return Unauthorized();

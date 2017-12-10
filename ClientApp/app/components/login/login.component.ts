@@ -3,6 +3,7 @@ import { Router, ActivatedRoute } from '@angular/router';
  
 import { AlertService } from '../../services/alert.service'; 
 import { AuthenticationService } from '../../services/authentication.service';
+import { User } from '../../shared/models';
 
 @Component({
     selector: 'login',
@@ -11,7 +12,7 @@ import { AuthenticationService } from '../../services/authentication.service';
 })
  
 export class LoginComponent implements OnInit {
-    model: any = {};
+    public model: User = new User();
     loading = false;
     returnUrl: string;
  
@@ -31,7 +32,7 @@ export class LoginComponent implements OnInit {
  
     login() {
         this.loading = true;
-        this.authenticationService.login(this.model.username, this.model.password)
+        this.authenticationService.login(this.model.email || '{}', this.model.pass || '{}')
             .subscribe(
                 data => {
                     this.router.navigate([this.returnUrl]);

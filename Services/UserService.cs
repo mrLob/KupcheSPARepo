@@ -22,19 +22,21 @@ namespace KupcheAspNetCore.Services
         {
             _context = new servicedbContext();
         }
-        public Users Authenticate(string username, string pass)
+
+        public Users Authenticate(string email, string pass)
         {
-            if( string.IsNullOrWhiteSpace(username) || string.IsNullOrEmpty(pass) ) 
+            if( string.IsNullOrWhiteSpace(email) || string.IsNullOrEmpty(pass) ) 
                 return null;
             using(servicedbContext db = new servicedbContext())
             {
-                var user = _context.Users.SingleOrDefault(x => x.Email == username);
+                var authUser = db.Users.SingleOrDefault(x => x.Email == email);
 
-                if(user == null) 
+                if(authUser == null) 
                     return null;
-                if(!VerifyPasswordHash(pass,user.PassHash,user.PassSalt))
+                if(!VerifyPasswordHash(pass,authUser.PassHash,authUser.PassSalt))
                     return null;
-                return user;
+                Console.WriteLine("Return auth of "+ authUser.Email);
+                return authUser;
             }
         }
         public IEnumerable<Users> GetAll()
@@ -144,7 +146,6 @@ namespace KupcheAspNetCore.Services
             }
  
             return true;
-        }
-        
+        }        
     }
 }
