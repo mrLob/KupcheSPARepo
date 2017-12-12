@@ -1,27 +1,25 @@
-<mat-card class="card-big">
-    <mat-card-header>
-        <mat-card-title class="card-title">Создание заявки</mat-card-title>
-        <mat-card-subtitle>Заполните форму и нажмите отправить</mat-card-subtitle>
-    </mat-card-header>
-    <form (ngSubmit)="onSubmit()">
-        <mat-card-content>
-            <div class="form-group">
-                <mat-form-field class="width-60p">
-                    <input matInput name="Caption" [(ngModel)]="order.Caption" placeholder="Тут введите заголовок" value="">
-                </mat-form-field> 
-                <br>
-                <mat-form-field class="full-width">
-                        <textarea matInput name="Description" [(ngModel)]="order.Text" placeholder="А тут введите описание работ" value=""> </textarea>
-                </mat-form-field>    
-                <br>
-                <mat-form-field class="full-width">
-                        <input matInput name="Cost" type="number" [(ngModel)]="order.Cost" placeholder="А тут стоимость работ" value="">
-                </mat-form-field>        
-            </div>
-        </mat-card-content>
-        <mat-card-actions>
-            <button mat-raised-button align="end" color="accent" type="submit">Отправить</button>
-        </mat-card-actions>
 
+<div class="card-big">
+<div class="panel panel-default">
+    <div class="panel-heading">Создание заявки</div>
+    <form (ngSubmit)="onSubmit()">        
+        <div class="panel-body">
+            <div class="input-group">
+                <input matInput class="form-control" name="Caption" [(ngModel)]="order.Caption" placeholder="Тут введите заголовок" value="">
+                <input matInput class="form-control" name="Data" type="data" [(ngModel)]="order.Caption" placeholder="Требуется до" value="">
+            </div>
+            <br>
+            <div class="form-group">
+                <textarea matInput class="form-control" name="Description" [(ngModel)]="order.Text" placeholder="А тут введите описание работ" value=""></textarea>
+            </div>
+            <br>
+            <div class="form-group">
+                <input matInput name="Cost" type="number" [(ngModel)]="order.Cost" placeholder="А тут стоимость работ" value="">
+            </div>        
+        </div>
+        <div class="panel-footer">
+            <button  [disabled]="" class="btn btn-primary" type="submit">Отправить</button>
+        </div>
     </form>
- </mat-card>
+</div>
+</div>

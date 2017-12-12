@@ -3,8 +3,8 @@
   "private": true,
   "version": "0.0.4",
   "scripts": {
-    "build": "webpack ",
-    "build-conf": "webpack --config webpack.config.vendor.js",
+    "build": "webpack",
+    "build-conf": "webpack -p --config webpack.config.vendor.js",
     "test": "karma start ClientApp/test/karma.conf.js"
   },
   "repository": {

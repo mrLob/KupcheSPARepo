@@ -4,20 +4,9 @@ import { FormsModule } from '@angular/forms';
 import { HttpModule } from '@angular/http';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
-import { 
-    MatButtonModule, MatButton, MatFormFieldModule, 
-    MatAutocompleteModule, MatButtonToggleModule, MatCardModule, 
-    MatCheckboxModule, MatChipsModule, MatTableModule, 
-    MatDatepickerModule, MatDialogModule, MatExpansionModule,
-    MatGridListModule, MatIconModule, MatInputModule,
-    MatListModule, MatMenuModule, MatPaginatorModule,
-    MatProgressBarModule, MatRadioModule, MatProgressSpinnerModule,
-    MatSelectModule, MatRippleModule, MatSlideToggleModule,
-    MatSidenavModule, MatSliderModule, MatSnackBarModule,
-    MatSortModule, MatStepperModule, MatTabsModule,
-    MatToolbarModule, MatTooltipModule, MatNativeDateModule
-    } from '@angular/material';
+import { AgmCoreModule } from '@agm/core';
 
+import { MaterialModule } from './material.module';
 import { AuthGuard } from './_guards/auth.guard';
 import { AppComponent } from './components/app/app.component';
 import { NavMenuComponent } from './components/navmenu/navmenu.component';
@@ -31,6 +20,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RegisterComponent } from './components/register/register.component'; 
 import { AlertComponent } from './components/alert/alert.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
+import { GoogleMapComponent } from './components/googlemap/googlemap.component';
 
 @NgModule({
     declarations: [
@@ -45,45 +35,17 @@ import { ToolbarComponent } from './components/toolbar/toolbar.component';
         LoginComponent,
         RegisterComponent,
         AlertComponent,
-        ToolbarComponent
+        ToolbarComponent,
+        GoogleMapComponent
     ],
     imports: [
-        MatAutocompleteModule,
-        MatButtonModule,
-        MatButtonToggleModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatChipsModule,
-        MatTableModule,
-        MatDatepickerModule,
-        MatDialogModule,
-        MatExpansionModule,
-        MatFormFieldModule,
-        MatGridListModule,
-        MatIconModule,
-        MatInputModule,
-        MatListModule,
-        MatMenuModule,
-        MatPaginatorModule,
-        MatProgressBarModule,
-        MatProgressSpinnerModule,
-        MatRadioModule,
-        MatRippleModule,
-        MatSelectModule,
-        MatSidenavModule,
-        MatSlideToggleModule,
-        MatSliderModule,
-        MatSnackBarModule,
-        MatSortModule,
-        MatStepperModule,
-        MatTabsModule,
-        MatToolbarModule,
-        MatTooltipModule,
-        MatNativeDateModule,
         CommonModule,
         HttpClientModule,
         HttpModule,
         FormsModule,
+        MaterialModule,AgmCoreModule.forRoot({
+            apiKey: 'AIzaSyBh7lDB034yICiJdrTsOUruVLvnmbvI8ug'
+          }),
         RouterModule.forRoot([
             { path: '', redirectTo: 'home', pathMatch: 'full' },
             { path: 'home', component: HomeComponent },
