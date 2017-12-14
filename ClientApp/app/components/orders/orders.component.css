@@ -3,6 +3,11 @@
     align-items: center;
     justify-content: space-around;
   }
+.panel-heading{
+    font-family: "Gabriela";
+    font-size: 20pt;
+    background: #fafcd6;
+}
 .card-big{
     width: 90%;
     margin-top: 5%;
