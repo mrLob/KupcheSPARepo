@@ -43,7 +43,8 @@ import { GoogleMapComponent } from './components/googlemap/googlemap.component';
         HttpClientModule,
         HttpModule,
         FormsModule,
-        MaterialModule,AgmCoreModule.forRoot({
+        MaterialModule,
+        AgmCoreModule.forRoot({
             apiKey: 'AIzaSyBh7lDB034yICiJdrTsOUruVLvnmbvI8ug'
           }),
         RouterModule.forRoot([

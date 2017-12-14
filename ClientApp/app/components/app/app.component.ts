@@ -1,4 +1,5 @@
 import { Component,ViewEncapsulation } from '@angular/core';
+
 @Component({
     selector: 'app',
     templateUrl: './app.component.html',
@@ -7,4 +8,5 @@ import { Component,ViewEncapsulation } from '@angular/core';
     preserveWhitespaces: false,
 })
 export class AppComponent {
+
 }

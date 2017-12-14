@@ -1,0 +1,49 @@
+{
+  "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+  "project": {
+    "name": "kupche_aspnet_core"
+  },
+  "apps": [
+    {
+      "root": "ClientApp",
+      "outDir": "wwwroot",
+      "assets": [
+        "assets",
+        "favicon.ico"
+      ],
+      "index": "app/components/app/app.component.html",
+      "main": "boot.browser.ts",
+      "polyfills": "../polyfills.ts",
+      "tsconfig": "../tsconfig.json",
+      "prefix": "app",
+      "styles": [
+        "app/styles.scss"
+      ],
+      "scripts": [],
+      "environmentSource": "environments",
+      "environments": {
+        "dev": "environments/environment.ts",
+        "prod": "environments/environment.prod.ts"
+      }
+    }
+  ],  
+  "lint": [
+    {
+      "project": "tsconfig.json",
+      "exclude": "**/node_modules/**"
+    },
+    {
+      "project": "e2e/tsconfig.e2e.json",
+      "exclude": "**/node_modules/**"
+    }
+  ],
+  "test": {
+    "karma": {
+      "config": "./karma.conf.js"
+    }
+  },
+  "defaults": {
+    "styleExt": "scss",
+    "component": {}
+  }
+}

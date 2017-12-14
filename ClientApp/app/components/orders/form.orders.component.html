@@ -6,11 +6,12 @@
                 <div class="panel-body">
                     <div class="form-group">
                         <div class="input-group">
-                            <input class="col-md-6 col-lg-6" name="Caption" [(ngModel)]="order.Caption" placeholder="Тут введите заголовок" value="">
+                            <input id="caption" class="form-control" name="Caption" [(ngModel)]="order.Caption" placeholder="Тут введите заголовок" value="">
+                            <i class='glyphicon glyphicon-menu-hamburger'></i>
                         </div>
                     </div>
                     <div class="form-group">
-                        <textarea class="col-md-6"name="Description" [(ngModel)]="order.Text" placeholder="А тут введите описание работ" value=""></textarea>
+                        <textarea id="description" class="col-md-6"name="Description" [(ngModel)]="order.Text" placeholder="А тут введите описание работ" value=""></textarea>
                     </div>
                     <div class="form-group">
                         <input name="Cost" type="number" [(ngModel)]="order.Cost" placeholder="А тут стоимость работ" value="">

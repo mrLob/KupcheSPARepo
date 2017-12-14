@@ -1,6 +1,6 @@
 import { NgModule } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
-import { AppModuleShared } from './app.module.shared';
+import { AppModuleShared } from './app.module';
 import { AppComponent } from './components/app/app.component';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './_guards/auth.guard';
