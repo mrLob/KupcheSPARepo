@@ -4,13 +4,16 @@ import { AppModuleShared } from './app.module';
 import { AppComponent } from './components/app/app.component';
 import { AuthenticationService } from './services/authentication.service';
 import { AuthGuard } from './_guards/auth.guard';
-import { AlertService } from './services/alert.service'
+import { AlertService } from './services/alert.service';
+
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
     bootstrap: [ AppComponent ],
     imports: [
         BrowserModule,
-        AppModuleShared
+        AppModuleShared,
+        BrowserAnimationsModule
     ],
     providers: [
         { provide: 'BASE_URL', useFactory: getBaseUrl },
