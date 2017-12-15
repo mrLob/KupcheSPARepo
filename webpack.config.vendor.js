@@ -16,8 +16,8 @@ const treeShakableModules = [
     'zone.js',
 ];
 const nonTreeShakableModules = [
-    '@angular/material/prebuilt-themes/deeppurple-amber.css',
     'bootstrap',
+    './node_modules/bootstrap/dist/css/bootstrap.css',
     './ClientApp/app/styles.css',
     'es6-promise',
     'es6-shim',

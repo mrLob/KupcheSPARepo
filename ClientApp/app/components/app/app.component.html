@@ -1,15 +1,16 @@
-<div class='container-fluid'>
-    <mat-drawer-container class="example-container">
-        <mat-drawer #drawer class="example-sidenav" mode="side">    
-            <nav-menu></nav-menu>
-        </mat-drawer>
-            <toolbar></toolbar>
-            <button type="button" mat-button (click)="drawer.toggle()">
-                Toggle sidenav
-              </button>
-            <router-outlet></router-outlet>
-    </mat-drawer-container>
-</div>
+<mat-sidenav-container class="example-container">
+    <mat-sidenav #drawer class="example-sidenav" mode="over">    
+        <nav-menu></nav-menu>
+    </mat-sidenav>
+    <mat-sidenav-content>
+        <toolbar></toolbar>
+        <button type="button" mat-button (click)="drawer.toggle()">
+            Toggle sidenav
+            </button>
+        <router-outlet></router-outlet>
+    </mat-sidenav-content>
+</mat-sidenav-container>
+
 
 
   
