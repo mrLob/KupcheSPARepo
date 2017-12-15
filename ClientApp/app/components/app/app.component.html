@@ -1,12 +1,13 @@
 <mat-sidenav-container class="example-container">
-    <mat-sidenav #drawer class="example-sidenav" mode="over">    
+    <mat-sidenav #drawer class="example-sidenav" mode="side">    
         <nav-menu></nav-menu>
     </mat-sidenav>
     <mat-sidenav-content>
-        <toolbar></toolbar>
-        <button type="button" mat-button (click)="drawer.toggle()">
-            Toggle sidenav
-            </button>
+        <mat-toolbar color="primary">            
+        <button type="button" mat-button (click)="drawer.toggle()"><span class='glyphicon glyphicon-menu-hamburger'></span></button>
+            <span> Title</span>
+            <a class='navbar-brand' [routerLink]="['/login']">Войти</a>
+        </mat-toolbar>
         <router-outlet></router-outlet>
     </mat-sidenav-content>
 </mat-sidenav-container>
