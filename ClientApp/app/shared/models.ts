@@ -24,7 +24,7 @@ export class User{
         public pass?: string
     ){}
 }
-export class Files{
+export class File{
     constructor(
         public IdFiles?: number,
         public Name?: string,
@@ -32,11 +32,22 @@ export class Files{
         public UserId?: number
     ){}
 }
-export class Images{
+export class Image{
     constructor(
         public IdImages?: number,
         public Name?: string,
         public Path?: string,
         public UserId?: number
     ){}
+}
+export class Company{
+   constructor(
+    public IdCompany?: number,
+    public name?: string,
+    public shortName?: string,
+    public contacts?: string,
+    public about?: string,
+    public pan?: string,
+    public addressId?: number,
+    public isDeleted?: boolean){}
 }

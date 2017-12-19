@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup } from '@angular/forms/src/model';
 
 import { OrdersFormComponent } from "./form.orders.component";
+import { OrdersListComponent } from "./list.orders.component"
 
 import { OrdersService } from "../../services/orders.service";
 import { Order } from "../../shared/models";
@@ -16,14 +17,14 @@ export class OrdersComponent implements OnInit {
     public order: Order = new Order();
     public orders: Order[];
     
-    constructor(private ordersService: OrdersService){}
+    constructor(private service: OrdersService){}
 
     ngOnInit(){
         this.loadOrders();
     }
 
     loadOrders(){
-        this.ordersService.getOrders()
+        this.service.getOrders()
         .subscribe((data: Order[]) => this.orders = data);
         
     }

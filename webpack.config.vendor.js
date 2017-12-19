@@ -17,6 +17,7 @@ const treeShakableModules = [
 ];
 const nonTreeShakableModules = [
     'bootstrap',
+    './node_modules/material-design-icons/iconfont/material-icons.css',
     './node_modules/bootstrap/dist/css/bootstrap.css',
     './ClientApp/app/styles.css',
     'es6-promise',

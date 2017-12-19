@@ -6,9 +6,9 @@ mat-list-item .glyphicon {
 mat-list-item.link-active a,
 mat-list-item.link-active a:hover,
 mat-list-item.link-active a:focus {
-    background: #259f6c;
-    color: white;
-    box-shadow: inset 0 1px 0 rgba(122, 122, 122, 0.2), 0 3px 0 rgba(122, 122, 122, 0.3);
+    font-size: 16pt;
+    color: #259f6c;
+    padding: 5px 5px;
 }
 
 /* Keep the nav menu independent of scrolling and on top of other items */
@@ -46,7 +46,7 @@ mat-list-item.link-active a:focus {
     }
     mat-list-item {
         float: none;
-        font-size: 15px;
+        font-size: 15pt;
     }
     mat-nav-list a {
         width: 100%;

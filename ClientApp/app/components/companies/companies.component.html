@@ -1,0 +1,32 @@
+<mat-card class="card">
+    <mat-card-header>
+        <mat-card-title>Каталог компаний</mat-card-title>
+        <mat-card-subtitle>Тут представлены зарегестрированные у нас компании</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+        <div *ngFor="let company of companies">  
+            <mat-card>
+                    <mat-card-header>
+                        <img matCardAvatar src="https://pp.userapi.com/c7002/v7002290/17368/6Egs1qBU0Nk.jpg">
+                        <mat-card-title>{{company.shortName}}</mat-card-title>
+                        <mat-card-subtitle>{{company.pan}}</mat-card-subtitle>
+                    </mat-card-header>
+                    <mat-card-content>
+                        {{company.about}}
+                    </mat-card-content>
+                    <mat-card-actions align="start">
+                        <button mat-button (click)="onAction(event)">Action1</button>
+                        <button mat-button (click)="onAction(event)">Action2</button>
+                        
+                    </mat-card-actions>
+                    <mat-card-footer>
+                        Footer
+                    </mat-card-footer>
+                </mat-card>
+        </div>  
+    </mat-card-content>
+    <mat-card-footer>
+        
+    </mat-card-footer>
+</mat-card>
+

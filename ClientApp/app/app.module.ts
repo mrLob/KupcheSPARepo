@@ -15,12 +15,14 @@ import { FetchDataComponent } from './components/fetchdata/fetchdata.component';
 import { CounterComponent } from './components/counter/counter.component';
 import { OrdersComponent } from './components/orders/orders.component';
 import { OrdersFormComponent} from './components/orders/form.orders.component';
+import { OrdersListComponent } from './components/orders/list.orders.component';
 import { LoginComponent } from './components/login/login.component'; 
 import { RegisterComponent } from './components/register/register.component'; 
 import { AlertComponent } from './components/alert/alert.component';
 import { ToolbarComponent } from './components/toolbar/toolbar.component';
 import { GoogleMapComponent } from './components/googlemap/googlemap.component';
 import { HomeAuthComponent } from './components/home-auth/home-auth.component';
+import { CompaniesComponent } from './components/companies/companies.component';
 
 @NgModule({
     declarations: [
@@ -31,12 +33,14 @@ import { HomeAuthComponent } from './components/home-auth/home-auth.component';
         HomeComponent,
         OrdersComponent,
         OrdersFormComponent,
+        OrdersListComponent,
         LoginComponent,
         RegisterComponent,
         AlertComponent,
         ToolbarComponent,
         GoogleMapComponent,
-        HomeAuthComponent
+        HomeAuthComponent,
+        CompaniesComponent
     ],
     imports: [
         CommonModule,

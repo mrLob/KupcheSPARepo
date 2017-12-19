@@ -1,0 +1,11 @@
+mat-card{    
+    margin: 5%;
+    width: 30%;
+    background-color: #fffcca;
+    border-radius: 0.2vw;
+    border-width: 3px;
+    border-color: #259f6c;    
+  }
+  .card{
+    width: 90%;
+  }

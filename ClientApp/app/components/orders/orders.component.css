@@ -18,8 +18,7 @@
     background: #fafcd6;
 }
 .card-big{
-    margin: 5%;
-    width: 90%;
+    
     margin-top: 5%;
 }
 .card-title{
@@ -31,4 +30,15 @@
 }
 .width-60p{
     width: 60%;
+}
+mat-card{
+    margin: 5%;
+    width: 90%;
+    background-color: #fffcca;
+    border-radius: 0.3vw;
+    border-width: 3px;
+    border-color: #259f6c;
+}
+mat-card:hover{
+    border-color: #259f6c;
 }
