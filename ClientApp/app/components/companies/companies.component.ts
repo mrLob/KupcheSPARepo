@@ -12,7 +12,7 @@ import { Company } from '../../shared/models';
 export class CompaniesComponent implements OnInit {
   public companies: Company[];
   constructor(private sevice: CompaniesService) { }
-
+  loaded: boolean = false;
   ngOnInit() {
     this.sevice.getAll()
     .subscribe((data: Company[])=> this.companies = data);

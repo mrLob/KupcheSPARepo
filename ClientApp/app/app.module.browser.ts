@@ -8,6 +8,8 @@ import { AlertService } from './services/alert.service';
 
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
+import 'hammerjs';
+
 @NgModule({
     bootstrap: [ AppComponent ],
     imports: [

@@ -36,9 +36,8 @@ mat-card{
     width: 90%;
     background-color: #fffcca;
     border-radius: 0.3vw;
-    border-width: 3px;
-    border-color: #259f6c;
+    border: 1px solid #259f6c;
 }
 mat-card:hover{
-    border-color: #259f6c;
+    border: 3px solid #259f6c;;
 }

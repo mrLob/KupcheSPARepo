@@ -14,8 +14,10 @@ import { Order } from "../../shared/models";
 export class OrdersListComponent implements OnInit {
     @Input("model")
     public orders: Order[];
+    @Input("filter")
+    public filter: string;
 
-    public displayedColumns = ['caption','text'];
+    public displayedColumns = ['idOrders','caption','text','cost'];
     public dataSource = new MatTableDataSource<Order>(this.orders);
     
     constructor(private ordersService: OrdersService){}

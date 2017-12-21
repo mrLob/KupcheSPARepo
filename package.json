@@ -39,6 +39,7 @@
   "devDependencies": {
     "@angular/compiler-cli": "5.1.0",
     "@types/chai": "4.0.5",
+    "@types/hammerjs": "^2.0.35",
     "@types/jasmine": "2.8.2",
     "@types/node": "^8.0.47",
     "@types/webpack-env": "1.13.2",

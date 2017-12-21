@@ -6,6 +6,11 @@ mat-card{
     border-width: 3px;
     border-color: #259f6c;    
   }
+ 
   .card{
     width: 90%;
+  }
+  .content{
+    width: 100%;
+    height: 95%;
   }

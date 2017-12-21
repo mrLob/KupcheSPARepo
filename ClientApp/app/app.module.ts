@@ -24,6 +24,7 @@ import { GoogleMapComponent } from './components/googlemap/googlemap.component';
 import { HomeAuthComponent } from './components/home-auth/home-auth.component';
 import { CompaniesComponent } from './components/companies/companies.component';
 
+
 @NgModule({
     declarations: [
         AppComponent,
