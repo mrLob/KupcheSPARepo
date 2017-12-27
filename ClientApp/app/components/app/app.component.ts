@@ -18,21 +18,23 @@ export class AppComponent implements OnInit  {
     
     ngOnInit(){
     }
-    startTimer(){
-        setInterval(this.loadProfile(),1000);
-    }
 
     openDialog(): void {
         let dialog = this.dialog.open(LoginComponent,{width: '250px'});
         dialog.afterClosed().subscribe((result: boolean) => {
-                console.log(result);
-                this.profLoad = result;              
-            });
+                console.log("RESULT: "+result);
+            this.profLoad = result;
+            this.profile = this.authenticationService.getProfile();
+            
+            this.profLoad = true;
+            console.log("RESULT: "+this.profLoad);
+        });
+        this.loadProfile();
     }
 
     loadProfile(){
-        console.log("message logged"+this.authenticationService.getStates());
-        if(this.authenticationService.getStates() === "authorized"){
+        console.log("message logged "+this.authenticationService.getStates());
+        if(this.authenticationService.getStates() == "authorized"){
             console.log("message logged");
             this.profile = this.authenticationService.getProfile();
             this.profLoad = true;
