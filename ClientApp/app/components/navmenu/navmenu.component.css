@@ -13,11 +13,11 @@ mat-list-item.link-active a:focus {
 
 /* Keep the nav menu independent of scrolling and on top of other items */
 .main-nav {
-    position: fixed;
+    position: relative;
     top: 0;
     left: 0;
     right: 0;
-    z-index: 1;
+    z-index: 2;
 }    
 mat-nav-list a {
     width: 100%;
@@ -35,13 +35,6 @@ a {
 
 @media (min-width: 768px) {
     /* On small screens, convert the nav menu to a vertical sidebar */
-    .main-nav {
-        position: fixed;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1;
-    }
     mat-list-item.link-active a,
     mat-list-item.link-active a:hover,
     mat-list-item.link-active a:focus {

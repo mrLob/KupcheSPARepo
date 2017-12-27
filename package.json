@@ -1,7 +1,7 @@
 {
   "name": "kupche_aspnet_core",
   "private": true,
-  "version": "0.0.7",
+  "version": "0.0.8",
   "scripts": {
     "build": "webpack -p --config webpack.config.vendor.js && webpack",
     "test": "karma start ClientApp/test/karma.conf.js"

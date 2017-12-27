@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router, ActivatedRoute } from '@angular/router';
- 
+import { MatDialogRef } from '@angular/material';
+
 import { AlertService } from '../../services/alert.service'; 
 import { AuthenticationService } from '../../services/authentication.service';
 import { User } from '../../shared/models';
@@ -21,7 +22,8 @@ export class LoginComponent implements OnInit {
         private route: ActivatedRoute,
         private router: Router,
         private authenticationService: AuthenticationService,
-        private alertService: AlertService) { }
+        private alertService: AlertService,
+        public dialogRef: MatDialogRef<LoginComponent>) { }
  
     ngOnInit() {
         // reset login status
